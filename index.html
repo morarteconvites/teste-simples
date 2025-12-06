@@ -3,34 +3,53 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Teste da Câmera</title>
+  <title>Teste 9:16</title>
+
   <style>
     body {
       margin: 0;
       padding: 0;
       background: #000;
+      overflow: hidden;
       display: flex;
       justify-content: center;
       align-items: center;
       height: 100vh;
-      color: white;
-      font-family: Arial;
     }
+
+    .container {
+      width: 100vw;
+      height: 100vh;
+      background: #000;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+      overflow: hidden;
+    }
+
     video {
+      position: absolute;
       width: 100%;
-      height: auto;
+      height: 100%;
+      object-fit: cover; /* ESSA LINHA força o formato 9:16 preenchido */
     }
   </style>
 </head>
 <body>
 
-  <video id="video" autoplay playsinline></video>
+  <div class="container">
+    <video id="video" autoplay playsinline></video>
+  </div>
 
   <script>
     async function startCamera() {
       try {
         const stream = await navigator.mediaDevices.getUserMedia({
-          video: { facingMode: "user" }
+          video: { 
+            facingMode: "user",
+            aspectRatio: 9/16   // ← força orientação vertical no pedido
+          }
         });
 
         document.getElementById('video').srcObject = stream;
